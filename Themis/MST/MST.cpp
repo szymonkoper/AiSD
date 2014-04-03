@@ -11,7 +11,7 @@ struct Edge
     { }
 };
 
-bool operator< (const Edge& a, const Edge& b)
+bool operator> (const Edge& a, const Edge& b)
 {
     return a.w > b.w;
 }
@@ -32,7 +32,7 @@ struct UnionFind
 
     UnionFind(const unsigned int n)
     {
-        groups.resize(n+1);
+        groups.resize(n + 1);
 
         for (unsigned int i = 0; i <= n; ++i)
             groups[i] = i; // At the beginning each point points at itself.
@@ -40,10 +40,10 @@ struct UnionFind
 };
 
 template <class T>
-class reservable_priority_queue : public std::priority_queue<T>
+class reservable_min_priority_queue : public std::priority_queue<T, std::vector<T>, std::greater<T> >
 {
 public:
-    reservable_priority_queue(unsigned int capacity)
+    reservable_min_priority_queue(unsigned int capacity)
     {
         this->c.reserve(capacity);
     }
@@ -55,7 +55,7 @@ int main()
     scanf("%u %u", &n, &m);
 
     UnionFind graph(n);
-    reservable_priority_queue<Edge> edges(m);
+    reservable_min_priority_queue< Edge > edges(m);
 
     unsigned int a, b, w;
     for (unsigned int i = 0; i < m; ++i)
@@ -64,17 +64,20 @@ int main()
         edges.push( Edge(a, b, w) );
     }
 
-    unsigned int edgeCounter = 1;
+    unsigned int totalWeightMST = 0;
+
     Edge e(0, 0, 0);
-    while (edgeCounter < n)
+    for (unsigned int edgeCounter = 1; edgeCounter < n; edges.pop())
     {
         e = edges.top();
-        edges.pop();
         if ( graph.Union( e.a, e.b ) )
+        {
+            totalWeightMST += e.w;
             ++edgeCounter;
+        }
     }
 
-    printf("%u\n", e.w);
+    printf("%u\n", totalWeightMST);
 
     return 0;
 }
