@@ -4,16 +4,24 @@
 #include <vector>
 #include <list>
 
+struct Edge
+{
+  int from;
+  int to;
+  int weight;
+  
+  Edge(const int from, const int to, const int weight) : from(from), to(to), weight(weight)
+  { }
+};
 
 namespace Data
 {
   int n, m, s; // #nodes, #edges, start_node_id
-  std::vector<std::list<std::pair<int,int> > > edges;
+  std::list<Edge> edges;
 
   void read_init()
   {
     scanf("%d %d %d", &n, &m, &s);
-    edges.resize(n + 1);
   }
 
   void read_edges()
@@ -23,7 +31,7 @@ namespace Data
       int a, b, c; // edge from a to b with weight c
       scanf("%d %d %d", &a, &b, &c);
 
-      edges[a].push_back( std::pair<int,int>(b, c) );
+      edges.push_back(Edge(a, b, c));
     }
   }
 }
@@ -50,19 +58,16 @@ namespace Bellman
   {
     for (int i = 0; i <= Data::n; ++i)
     {
-      for (std::list<std::pair<int,int> >::iterator it = Data::edges[i].begin(); it != Data::edges[i].end(); ++it)
+      for (std::list<Edge>::iterator it = Data::edges.begin(); it != Data::edges.end(); ++it)
       {
-        relax(i, it->first, it->second);
+        relax(it->from, it->to, it->weight);
       }
     }
-    for (int i = 0; i <= Data::n; ++i)
+    for (std::list<Edge>::iterator it = Data::edges.begin(); it != Data::edges.end(); ++it)
     {
-      for (std::list<std::pair<int,int> >::iterator it = Data::edges[i].begin(); it != Data::edges[i].end(); ++it)
+      if ((min_paths[it->from] != LONG_MAX) && (min_paths[it->to] > min_paths[it->from] + it->weight))
       {
-        if ((min_paths[i] != LONG_MAX) && (min_paths[it->first] > min_paths[i] + it->second))
-        {
-          return false;
-        }
+        return false;
       }
     }
     return true;
