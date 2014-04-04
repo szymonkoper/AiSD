@@ -2,80 +2,85 @@
 #include <list>
 #include <queue>
 #include <cstdio>
+#include <stdbool.h>
+#include <climits>
 
 
-#define DEBUG 1
 
-
-struct Edge
+struct Node
 {
-  int to;
-  int weight;
+  short id;
+  int dist;
+  std::list<std::pair<short,int> > edges;
   
-  Edge(const int to, const int weight) : to(to), weight(weight)
+  Node(const short i, const int d) : id(i), dist(d)
   { }
 };
 
-namespace Data
+bool operator> (const Node& a, const Node& b)
 {
-  int cities_number = 0;
-  int connections_number = 0;
-  
-  std::vector<std::list<Edge> > cities;
-  
-  void read_all()
-  {
-    scanf("%d %d", &cities_number, &connections_number);
-    
-    cities.resize(cities_number + 1);    
-    for (int i = 1; i <= connections_number; ++i)
-    {
-      int a, b, w;
-      
-      scanf("%d %d %d", &a, &b, &w);
-      cities[a].push_back( Edge(b, w) );
-      cities[b].push_back( Edge(a, w) );
-    }
-  }
-  
-  void DEBUG_print_data()
-  {
-    if (DEBUG)
-    {
-      printf("//DEBUG BEGIN:\n");
-      printf("cities: %d \tconnections: %d\n", cities_number, connections_number);
-      
-      for (int i = 1; i <= cities_number; ++i)
-      {
-        for (std::list<Edge>::iterator it = cities[i].begin(); it != cities[i].end(); ++it)
-        {
-          printf("Edge from %d\t to %d\t weight\t %d\n", i, (*it).to, (*it).weight);
-        }
-      }
-      printf("//DEBUG END\n");
-    }
-  }
+  return a.dist > b.dist;
+}
+
+struct CompareNode
+{
+	bool operator()(const Node* lhs, const Node* rhs) const
+	{
+		return *lhs > *rhs;
+	}
 };
 
-namespace Dijkstra
-{
-  std::vector<bool> visited_cities;
-  std::vector<int> min_paths;
-  
-  void init_values()
-  {
-    visited_cities.resize(Data::cities_number + 1);
-    min_paths.resize(Data::cities_number + 1);
-  }
-}
 
 
 int main()
 {
-  Data::read_all();
-  Data::DEBUG_print_data();
+  short cities_number;
+  int connections_number;
+  scanf("%hd %d", &cities_number, &connections_number);
+
+  std::vector<Node> nodes;
+  nodes.resize(cities_number + 1, Node(0, INT_MAX));
+  nodes[1].dist = 0;
   
-  Dijkstra::init_values();
+  for (int i = 0; i <= cities_number; ++i)
+    nodes[i].id = i;
+
+  for (int i = 1; i <= connections_number; ++i)
+  {
+    int a, b, w;
+    
+    scanf("%d %d %d", &a, &b, &w);
+    nodes[a].edges.push_back( std::pair<short,int>(b, w) );
+    nodes[b].edges.push_back( std::pair<short,int>(a, w) );
+  }
+
+  std::priority_queue<Node*, std::vector<Node*>, CompareNode > queue;
+  queue.push( &(nodes[1]) );
+  
+  while (!queue.empty())
+  {
+    Node* n = queue.top();
+    queue.pop();
+    
+    for (std::list<std::pair<short,int> >::iterator it = n->edges.begin(); it != n->edges.end(); ++it)
+    {      
+      short to = it->first;
+      int weight = it->second;
+      
+      if (n->dist + weight < nodes[to].dist)
+      {
+        nodes[to].dist = n->dist + weight;
+        queue.push( &(nodes[to]) );
+      }  
+    }
+  }
+  
+  for (int i = 2; i <= cities_number; ++i)
+  {
+    printf("%d ", nodes[i].dist);
+  }
+  printf("\n");
+  
   
   return 0;
 }
