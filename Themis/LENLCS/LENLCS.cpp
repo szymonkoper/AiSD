@@ -35,39 +35,44 @@ class LCS
       (*it)[0] = 0;
     }
     
-    directions.resize(u.length());
+    directions.resize(u.length() + 1);
     for(std::vector<std::vector<direction> >::iterator it = directions.begin(); it != directions.end(); ++it)
     {
-      it->resize(v.length(), NONE);
+      it->resize(v.length() + 1, NONE);
     }
   }
   
-  unsigned short longest_length_from_predecessors(unsigned short row, unsigned short col)
+  void set_length_and_path_from_predecessors(const unsigned short col, const unsigned short row)
   {
-    char letter_u = u[row + 1];
-    char letter_v = v[col + 1];
-    
+    const char letter_u = u[col - 1];
+    const char letter_v = v[row - 1];
+//    std::cout << letter_u << " " << letter_v << std::endl;
     if (letter_u == letter_v)
     {
-      directions[row][col] = DIAGONAL;
-      return 1 + lengths[row - 1][col - 1];
+      directions[col][row] = DIAGONAL;
+      lengths[col][row] = 1 + lengths[col - 1][row - 1];
+    }
+    else if (lengths[col][row - 1] >= lengths[col - 1][row])
+    {
+      directions[col][row] = UP;
+      lengths[col][row] = lengths[col][row - 1];
     }
     else
     {
-      return 0; //TODO
+      directions[col][row] = LEFT;
+      lengths[col][row] = lengths[col - 1][row];
     }
   }
 
 public:
-  enum str
+  enum str_id
   {
     U,
     V
   };
   
-  void read_line(str s)
+  void read_line(str_id s)
   {
-    clear();
     switch (s)
     {
       case U:
@@ -89,7 +94,7 @@ public:
     {
       for (unsigned short col = 1; col <= u.length(); ++col)
       {
-        lengths[row][col] = longest_length_from_predecessors(row, col);
+        set_length_and_path_from_predecessors(col, row);
       }
     }
     
@@ -116,6 +121,57 @@ public:
                 << "V.len=" << v.length() << " with " << v << std::endl;
     }
   }
+  
+  void DEBUG_print_lengths_contents()
+  {
+    std::cout << "PRINT LENGTHS CONTENTS:" << std::endl;
+    if (DEBUG)
+    {
+      for (unsigned short it_v = 0; it_v <= v.length(); ++it_v)
+      {
+        for (unsigned short it_u = 0; it_u <= u.length(); ++it_u)
+        {
+          std::cout << lengths[it_u][it_v] << "\t";
+        }
+        std::cout << std::endl;
+      }
+    }
+  }
+
+  void DEBUG_print_directions_contents()
+  {
+    std::cout << "PRINT DIRECTIONS CONTENTS:" << std::endl;
+    if (DEBUG)
+    {
+      for (unsigned short it_v = 0; it_v <= v.length(); ++it_v)
+      {
+        for (unsigned short it_u = 0; it_u <= u.length(); ++it_u)
+        {
+          char c = ' ';
+          switch(directions[it_u][it_v])
+          {
+            case NONE:
+              c = ' ';
+              break;
+            
+            case UP:
+              c = '^';
+              break;
+            
+            case LEFT:
+              c = '<';
+              break;
+            
+            case DIAGONAL:
+              c = '\\';
+              break;
+          }
+          std::cout << c << "\t";
+        }
+        std::cout << std::endl;
+      }
+    }
+  }
 };
 
 
@@ -135,6 +191,8 @@ int main()
   std::cin >> d;
   while(d > 0)
   {
+    lcs.clear();
+    
     omg_just_ignore_this_number_and_go_on();
     lcs.read_line(LCS::U);
 
@@ -145,6 +203,8 @@ int main()
     
     lcs.run();
     std::cout << lcs.longest_length() << std::endl;
+    lcs.DEBUG_print_lengths_contents();
+    lcs.DEBUG_print_directions_contents();
     
     //lcs.clear();   
     --d;
