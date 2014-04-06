@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <list>
 #include <string>
 #include <limits>
 
@@ -131,12 +132,36 @@ public:
   
   std::string longest_common_subsequence()
   {
-    std::string s;
+    std::vector<char> s_vec;
+    s_vec.resize(longest_length());
     
-    unsigned short x = u.length();
-    unsigned short y = v.length();
+    int x = u.length();
+    int y = v.length();
     
-    return s;
+    int i = longest_length() - 1;
+    
+    while (i >= 0)
+    {
+      switch (directions[x][y])
+      {
+        case UP:
+          --y;
+          break;
+        
+        case LEFT:
+          --x;
+          break;
+        
+        default:
+          s_vec[i] = u[x-1];
+          --i;
+          --x;
+          --y;
+          break;
+      }
+    }
+
+    return std::string(s_vec.begin(), s_vec.end());
   }
   
   void DEBUG_print_strings()
