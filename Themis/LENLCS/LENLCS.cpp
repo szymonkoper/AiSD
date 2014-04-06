@@ -106,6 +106,7 @@ public:
     
   }
   
+  
   unsigned short longest_length()
   {
     return lengths[u.length()][v.length()];
@@ -115,7 +116,8 @@ public:
   {
     u.clear();
     v.clear();
-    lengths.clear();
+    lengths.resize(0);
+    directions.resize(0);
   }
   
   void DEBUG_print_strings()
