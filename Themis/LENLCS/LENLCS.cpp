@@ -13,6 +13,8 @@ class LCS
   
   std::vector<std::vector<unsigned short> > lengths;
   
+  bool need_predecessors;
+  
   enum direction
   {
     NONE,
@@ -35,10 +37,13 @@ class LCS
       (*it)[0] = 0;
     }
     
-    directions.resize(u.length() + 1);
-    for(std::vector<std::vector<direction> >::iterator it = directions.begin(); it != directions.end(); ++it)
+    if (need_predecessors)
     {
-      it->resize(v.length() + 1, NONE);
+      directions.resize(u.length() + 1);
+      for(std::vector<std::vector<direction> >::iterator it = directions.begin(); it != directions.end(); ++it)
+      {
+        it->resize(v.length() + 1, NONE);
+      }
     }
   }
   
@@ -46,20 +51,20 @@ class LCS
   {
     const char letter_u = u[col - 1];
     const char letter_v = v[row - 1];
-//    std::cout << letter_u << " " << letter_v << std::endl;
+
     if (letter_u == letter_v)
     {
-      directions[col][row] = DIAGONAL;
+      if (need_predecessors) directions[col][row] = DIAGONAL;
       lengths[col][row] = 1 + lengths[col - 1][row - 1];
     }
     else if (lengths[col][row - 1] >= lengths[col - 1][row])
     {
-      directions[col][row] = UP;
+      if (need_predecessors) directions[col][row] = UP;
       lengths[col][row] = lengths[col][row - 1];
     }
     else
     {
-      directions[col][row] = LEFT;
+      if (need_predecessors) directions[col][row] = LEFT;
       lengths[col][row] = lengths[col - 1][row];
     }
   }
@@ -86,8 +91,9 @@ public:
   }
   
 
-  void run()
+  void run(bool predecessors = true)
   {
+    need_predecessors = predecessors;
     init();
     
     for (unsigned short row = 1; row <= v.length(); ++row)
@@ -177,8 +183,10 @@ public:
 
 void omg_just_ignore_this_number_and_go_on()
 {
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  unsigned short x;
+  std::cin >> x;
+  //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 int main()
@@ -201,7 +209,7 @@ int main()
 
     lcs.DEBUG_print_strings();
     
-    lcs.run();
+    lcs.run(false);
     std::cout << lcs.longest_length() << std::endl;
     lcs.DEBUG_print_lengths_contents();
     lcs.DEBUG_print_directions_contents();
