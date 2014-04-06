@@ -3,7 +3,7 @@
 #include <string>
 #include <limits>
 
-#define DEBUG 1
+#define DEBUG 0
 
 
 class LCS
@@ -124,9 +124,9 @@ public:
   
   void DEBUG_print_lengths_contents()
   {
-    std::cout << "PRINT LENGTHS CONTENTS:" << std::endl;
     if (DEBUG)
     {
+      std::cout << "PRINT LENGTHS CONTENTS:" << std::endl;
       for (unsigned short it_v = 0; it_v <= v.length(); ++it_v)
       {
         for (unsigned short it_u = 0; it_u <= u.length(); ++it_u)
@@ -140,9 +140,9 @@ public:
 
   void DEBUG_print_directions_contents()
   {
-    std::cout << "PRINT DIRECTIONS CONTENTS:" << std::endl;
     if (DEBUG)
     {
+      std::cout << "PRINT DIRECTIONS CONTENTS:" << std::endl;
       for (unsigned short it_v = 0; it_v <= v.length(); ++it_v)
       {
         for (unsigned short it_u = 0; it_u <= u.length(); ++it_u)
