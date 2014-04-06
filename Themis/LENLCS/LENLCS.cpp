@@ -42,7 +42,16 @@ class LCS
       directions.resize(u.length() + 1);
       for(std::vector<std::vector<direction> >::iterator it = directions.begin(); it != directions.end(); ++it)
       {
-        it->resize(v.length() + 1, NONE);
+        it->resize(v.length() + 1);
+      }
+      
+      for (unsigned short i = 0; i <= u.length(); ++i)
+      {
+        directions[i][0] = NONE;
+      }
+      for (unsigned short i = 1; i <= v.length(); ++i)
+      {
+        directions[0][i] = NONE;
       }
     }
   }
