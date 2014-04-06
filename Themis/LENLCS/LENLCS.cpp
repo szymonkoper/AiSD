@@ -106,7 +106,7 @@ public:
     
   }
   
-  int longest_length()
+  unsigned short longest_length()
   {
     return lengths[u.length()][v.length()];
   }
