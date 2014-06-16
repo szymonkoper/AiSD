@@ -104,7 +104,7 @@ Drzewa samoorganizujące się:
  - czerwono-czarne
  - B-drzewa
  - splay
- - drzewce (**TODO** w dobrym dziale to jest?)
+ - drzewce
 
 
 
@@ -162,12 +162,14 @@ Algorytmy tekstowe
 Algorytmy równoległe
 --------------------
 
-**TODO** (nie wiem co jest obowiązkowe i może coś waznego pominąłem)
  - klasa NC
  - model PRAM
- - wielowątkowe mnożenie macierzy
- - sieci sortujące (wielowątkowe sortowanie przez scalanie)
+ - równoległe dodawanie i mnożenie liczb
  - ustalanie porządku obiektów na liście
+ - równoległe kolorowanie (do 6 kolorów i poprawianie tego kolorowania do 3 kolorów)
+ - równoległe sumy prefiksowe (suma wszystkich elementow ciągu od pierwszego do k-tego)
+ - sieci półczyszczące dla ciągów bitonicznych
+ - sieci sortujące (wielowątkowe sortowanie przez scalanie) <--- podobno nie zdążyliśmy omówić
 
 
 
