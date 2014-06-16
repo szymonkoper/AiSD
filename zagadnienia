@@ -33,6 +33,7 @@ Algorytmy zachłanne:
 --------------------
 
  - alg. wydawania reszty
+ - alg. Prima i alg. Kruskala
  - alg. Boruvki (jeszcze raz MST)
  - szeregowanie zadań
  - Set Cover
@@ -71,7 +72,7 @@ Dolne granice:
 
  - model drzew decyzyjnych
  - przykład: dolna granica sortowania
- - model ... **TODO** jak sie nazywa ten model co niżej?
+ - model liniowych drzew decyzyjnych
  - przykład: dolna granica element uniqueness
 
 
@@ -80,6 +81,8 @@ Sortowanie:
 ----------
 
  - sortowanie leksykograficzne
+ - sortowanie kubełkowe
+ - sortowanie przez zliczanie
  - sprawdzanie izomorfizmu drzew 
 
 
