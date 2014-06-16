@@ -1,0 +1,170 @@
+
+Po MD powinniśmy znać:
+----------------------
+
+ - MergeSort
+ - alg. Euklidesa (także rozszerzoną wersję)
+ - DFS i BFS
+ - alg. Dijkstry-Prima i alg. Kruskala (znajdowanie MST)
+ - alg. Dijkstry
+ - alg. Warshalla-Floyda (najkrótsze ścieżki między wszystkimi parami wierzch.)
+ - alg. Forda-Fulkersona (maks. przepływ sieci)
+
+
+
+Wstęp:
+------
+
+ - metoda macierzowa rozwiązywania równań rekurencyjnych (przykład: n-ta liczba Fibonacciego w O(logn))
+ - kryteria kosztu operacji: jednorodne i logarytmiczne
+ - algorytmy sortowania (na przykładzie najprostszych O(n^2))
+
+
+
+Kopce proste:
+-------------
+
+ - kopiec min
+ - kopiec min-max
+
+
+
+Algorytmy zachłanne:
+--------------------
+
+ - alg. wydawania reszty
+ - alg. Boruvki (jeszcze raz MST)
+ - szeregowanie zadań
+ - Set Cover
+
+
+
+Metoda dziel i zwyciężaj:
+-------------------------
+
+ - ważne równanie rekurencyjne (zwane Master theorem)
+ - sortowanie (MergeSort i QuickSort)
+ - alg. Karatsuby
+ - adwersarz (jednoczesne znajdowanie min i max w zbiorze)
+ - sieci przełączników oraz konstrukcja sieci Benesa-Waksmana
+ - para najbliżej położonych punktów
+
+
+
+Programowanie dynamiczne:
+--------------------------
+
+ - obliczanie dwumianu Newtona
+ - stokrotki
+ - najdłuższy wspólny podciąg (LCS)
+ - optymalna kolejność mnożenia macierzy
+ - problem plecakowy (2 wersje: z powtórzeniami i bez)
+ - najkrótsze ścieżki między parami wierzchołków (**TODO** co to było? nie pamiętam tego)
+ - przynalezność do języka bezkontekstowego (gramatyki Chomsky'ego)
+ - drzewa rozpinające drabin
+ - najdłuższy rosnący podciąg (LIS)
+
+
+
+Dolne granice:
+--------------
+
+ - model drzew decyzyjnych
+ - przykład: dolna granica sortowania
+ - model ... **TODO** jak sie nazywa ten model co niżej?
+ - przykład: dolna granica element uniqueness
+
+
+
+Sortowanie:
+----------
+
+ - sortowanie leksykograficzne
+ - sprawdzanie izomorfizmu drzew 
+
+
+
+Selekcja:
+--------
+
+ - deterministyczna wersja Selection z pivotem (dziel i zwyciężaj)
+ - alg. magicznych piątek (do znalezienia pseudomediany - pivota)
+ - alg. Hoare-a (quickselect)
+ - lazy select
+
+
+
+Drzewa samoorganizujące się:
+----------------------------
+
+ - AVL
+ - czerwono-czarne
+ - B-drzewa
+ - splay
+ - drzewce (**TODO** w dobrym dziale to jest?)
+
+
+
+Kopce zaawansowane:
+-------------------
+
+ - Fibonacciego
+ - dwumianowe
+
+
+
+Struktura dla zbiorów rozłącznych:
+---------------------------------
+
+ - Union Find
+
+
+
+Wielomiany i FFT:
+-----------------
+
+ - Reprezentacja wielomianów
+ - DFT i FFT
+
+
+
+Tablice z haszowaniem:
+-----------------------
+
+ - tablice z adresowaniem bezpośrednim
+ - tablice z haszowaniem
+ - funkcje haszujące
+ - haszowanie modularne
+ - haszowanie przez mnożenie
+ - haszowanie uniwersalne
+ - adresowanie otwarte
+ - haszowanie doskonałe
+
+(przepisałem spis treści z *CLRS*)
+
+
+
+Algorytmy tekstowe
+------------------
+
+ - ShiftAnd
+ - alg. Rabina-Karpa
+ - wyszukiwanie wzorca z wykorzystaniem automatów skończonych
+ - alg. Knutha-Morrisa-Pratta (KMP) i funkcja pi
+ - alg. Bayera-Moore'a
+ - alg. Karpa-Millera-Rosenberga (KMR)
+
+
+
+Algorytmy równoległe
+--------------------
+
+**TODO** (nie wiem co jest obowiązkowe i może coś waznego pominąłem)
+ - klasa NC
+ - model PRAM
+ - wielowątkowe mnożenie macierzy
+ - sieci sortujące (wielowątkowe sortowanie przez scalanie)
+ - ustalanie porządku obiektów na liście
+
+
+
